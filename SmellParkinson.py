@@ -1,5 +1,5 @@
-import numpy as np                 # v 1.19.2
-import matplotlib.pyplot as plt    # v 3.3.2
+import numpy as np
+import matplotlib.pyplot as plt
 
 # create a random number generator
 rng = np.random.default_rng()
