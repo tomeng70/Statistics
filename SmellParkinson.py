@@ -13,14 +13,14 @@ NUM_GUESSES = 12
 # create and initialize a list of results for our trials.
 trials = [0] * NUM_TRIALS
 
-# iterate  the number of trials.
+# iterate the number of trials.
 for i in range (0, NUM_TRIALS):
     # reset the number of correct answers for the current trial.
     correct = 0
 
     # iterate the number of guesses per trial. 
     for j in range (0, NUM_GUESSES):
-        # "flip a coin" several times to determine randomly if our guess is correct or not.
+        # "flip a coin" to determine randomly if our guess is correct or not.
         val = rng.integers(0, 100)
         if (val < 50):
             # for our simulation, any value from 0 to 49 means the guess was correct.
@@ -30,34 +30,35 @@ for i in range (0, NUM_TRIALS):
     # record how many correct answers we had for the current trial.
     trials[i] = correct
 
-# use the unique() function to generate a list of unique answers in our data.
-# also generate a corresponding list of counts for each unique answer in our data
-# (i.e., how many times each unique answer appears in our data).
+# use the unique() function to generate a list of unique (distinct) values in our data.
+# also generate a corresponding list of counts for each distinct answer in our data
+# (i.e., how many times each distinct answer appears in our data).
 values, counts = np.unique(trials, return_counts=True)
 
-# Draw dot plot with appropriate figure size, marker size and y-axis limits
-# set figure size to 6" wide by 2.25" tall
+# we will plot a circular dot for each instance that a distinct answer occurs in our data.
+# first set size of our plot to be 6" wide by 2.25" tall
 fig, ax = plt.subplots(figsize=(6, 2.25))
 
-# iterate through the unique answers in our data.
-# value is the current unique answer from our data.
-# count is how many times that unique answer appears in our data.
+# iterate through the distinct answers in our data.
+# value is the current distinct answer from our data.
+# count is how many times this distinct answer appears in our data.
 for value, count in zip(values, counts):
-    # create a list of our current unique answer.
+    # create a list of our current distinct answer.
     answers = [value]*count
 
-    # create a sequence of values to match each of instance of our current unique answer.
-    # for example, if the answer of 4 appears 3 times, create a list of [0, 1, 2].
-    # this list will be used to placed the dots for the current unique answer, one on top of another.
+    # create a sequence of values to match each instance of our current unique answer.
+    # for example, if the answer of "4" appears 3 times in our data, then create a list of [0, 1, 2].
+    # this list will be used to plot the dots for the current unique answer, one on top of another.
     y_values = list(range(count))
 
-    # use answers as the x values and y_values as the corresponding y values of the dot plots for each unique answer.
+    # use answers as the x values for our dot plot.
+    # use y_values as the corresponding y values each distinct answer in our data set.
     # 'bo' tells pyplot to use blue circular markers.
     # ms tells pyplot to use a marker size of 10.
-    # don't have any visible lines connecting the markers (sent linestyle to blank).
+    # don't have any visible lines connecting the markers (set linestyle to blank).
     ax.plot(answers, y_values, 'bo', ms=10, linestyle='')
 
-# hide the top right and left spines of our graph.
+# hide the top, right, and left spines of our graph.
 for spine in ['top', 'right', 'left']:
     ax.spines[spine].set_visible(False)
 ax.yaxis.set_visible(False)
@@ -69,7 +70,7 @@ ax.set_ylim(-1, max(counts))
 ax.set_xticks(range(0, NUM_GUESSES + 1))
 ax.tick_params(axis='x', length=0, pad=8, labelsize=12)
 
-# set the title and labels for axes.
+# set the title and x axis label.
 ax.set_title("Smelling Parkinson's Simulated Trials")
 ax.set_xlabel(f"Number of Correct Guesses (out of {NUM_GUESSES})")
 
